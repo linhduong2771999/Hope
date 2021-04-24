@@ -1,0 +1,12 @@
+// import constant
+@import "../sass/constants/defaults.scss";
+@import "../sass/constants/mixin.scss";
+@import "../sass/constants/variables.scss";
+@import "../sass/constants/responsive.scss";
+
+
+// import component
+@import "../../modules/Wrapper/Wrapper.scss";
+@import "../../modules/Wrapper/Sidebar/Sidebar.scss";
+@import "../../modules/Wrapper/Header/Header.scss";
+@import "../../modules/Auth/Login/Login.scss";

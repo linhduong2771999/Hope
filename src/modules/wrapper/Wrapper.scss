@@ -1,0 +1,43 @@
+.hope{
+    .hope-content{
+        margin-left: 270px;
+        margin-top: 70px;
+        padding: 1rem 2rem;
+        @include responsive(SM){
+            padding: 0 2rem;
+            margin-left: 0;
+            margin-top: 50px;
+        }
+        div{
+            background-color: #ccc;
+            text-align: right;
+            @include size(100%);
+        }
+    }
+}
+
+.hope-content--shrink{
+    @include animation(0s, 0.6s, hope-content--shrink, ease);
+}
+
+.hope-content--stretch{
+    @include animation(0s, 0.6s, hope-content--stretch, ease);
+}
+
+@keyframes hope-content--shrink{
+    0%{
+        margin-left: 270px;
+    }
+    100%{
+        margin-left: 60px;
+    }
+}
+
+@keyframes hope-content--stretch{
+    0%{
+        margin-left: 60px;
+    }
+    100%{
+        margin-left: 270px;
+    }
+}

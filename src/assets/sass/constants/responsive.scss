@@ -1,0 +1,33 @@
+// Khai báo kích thước tương ứng với màn hình thiết bị
+
+$XS: 480px;
+$SM: 768px;
+$MD: 1024px;
+$LG: 1224px;
+$XL: 1824px;
+
+// media queries
+
+@mixin responsive($canvas) {
+  @if $canvas == XS {
+    @media only screen and (max-width: $XS) {
+      @content;
+    }
+  } @else if $canvas == SM {
+    @media only screen and (max-width: $SM) {
+      @content;
+    }
+  } @else if $canvas == SM {
+    @media only screen and (max-width: $SM) {
+      @content;
+    }
+  } @else if $canvas == LG {
+    @media only screen and (max-width: $MD) {
+      @content;
+    }
+  } @else if $canvas == XL {
+    @media only screen and (max-width: $XL) {
+      @content;
+    }
+  }
+}

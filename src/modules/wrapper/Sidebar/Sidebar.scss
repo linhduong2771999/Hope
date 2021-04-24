@@ -1,0 +1,196 @@
+@mixin menu-link{
+    @include resetAnchor;
+    display: block;
+    margin-bottom: .5rem;
+    position: relative;
+    @include transition(all .3s ease);
+    &:hover{
+        background-color: $grey-light;
+    }
+}
+.sidebar{
+    max-width: 500px;
+    @include size(270px, 100vh);
+    background-color: $default-white;
+    position: fixed;
+    @include responsive(SM){
+        margin-left: -270px;
+        @include transition(all .5s ease);
+    }
+    .sidebar-wrap{
+        @include size(100%);
+        .sidebar-main{
+            @include size(100%);
+            .menu{
+                margin: 0;
+                padding: 0;
+                &__item{
+                    display: block;
+                    position: relative;
+                }
+
+                &__link{
+                    padding: .75rem 1rem;
+                    @include menu-link;
+                }
+                &__icon--collapse-plus{
+                    &::after{
+                        content: "+";
+                        position: absolute;
+                        top: calc(50% - 10px);
+                        right: 20px;
+                        font-size: 21px;
+                        @include animation(0, 0.5s, scale-plus, ease);
+                    }
+                }
+                &__icon--collapse-minus{
+                    &::after{
+                        content: "";
+                        @include size(9px, 0px);
+                        border-top: 2px solid black;
+                        position: absolute;
+                        top: calc(50%);
+                        right: 22px;
+                        @include animation(0, 0.5s, scale-minus, ease);
+                    }
+                }
+                &__icon{
+                    & > img {
+                        vertical-align: bottom;
+                        margin-right: .75rem;
+                    }
+                }
+                &__text{
+                    font-size: 15px;
+                }
+                .submenu{
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    max-height: 0;
+                    overflow-y: hidden;
+                    &__item{
+                        display: block;
+                    }
+                    &__link{
+                        padding: .75rem 50px;
+                        font-size: calc(#{$fontSize-small} + 1px);
+                        @include menu-link;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.selected-link{
+    background-color: $grey-light;
+}
+.active-link{
+    background-color: $grey-bold!important;
+}
+
+.submenu--slide-down{
+    @include animation(0s, 0.6s, submenu--slide-down, ease);
+}
+
+.submenu--slide-up{
+    @include animation(0s, 0.6s, submenu--slide-up, ease);
+}
+
+.sidebar--shrink{
+    @include animation(0s, .6s, sidebar--shrinkY, ease);
+    .sidebar-wrap{
+        .sidebar-main{
+            .menu{
+                &__icon{
+                    > img {
+                        margin: 0;
+                    }
+                }
+                &__icon--collapse-plus{
+                    &::after{
+                        content: "";
+                    }
+                }
+                &__icon--collapse-minus{
+                    &::after{
+                        content: "";
+                        width: 0;
+                        height: 0;
+                    }
+                }
+                &__link{
+                    padding: .5rem 1.25rem;
+                }
+                &__text{
+                    display: none;
+                }
+                .submenu{
+                    max-height: 0;
+                    &__item{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sidebar--stretch{
+    @include animation(0s, .6s, sidebar--stretchY, ease);
+}
+
+@keyframes submenu--slide-down{
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 500px;
+    }
+}
+
+@keyframes submenu--slide-up{
+    0% {
+        max-height: 400px;
+    }
+    100% {
+        max-height: 0;
+    }
+}
+
+@keyframes scale-plus{
+    0% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes scale-minus{
+    0% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes sidebar--shrinkY{
+    0% {
+        @include size(270px, 100%);
+    }
+    100% {
+        @include size(62px, 100%);
+    }
+}
+
+@keyframes sidebar--stretchY{
+    0% {
+        @include size(62px, 100%);
+    }
+    100% {
+        @include size(270px, 100%);
+    }
+}
