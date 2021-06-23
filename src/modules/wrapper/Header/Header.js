@@ -1,27 +1,32 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 import { ModalPopupActions } from "../../../store/actions/index";
-import Button from "../../../components/Button/Button";
-import FontAwesome from "../../../components/FontAwesome/FontAwesome";
+import { removeLocalStorage, getLocalStorage } from "../../../helpers/localStorage";
 
+import Swal from 'sweetalert2';
 
+import Cog from "../../../assets/images/svg/cog.svg";
 import Logo from "../../../assets/images/common/logo.png";
-import DefaultUserMale from "../../../assets/images/common/default-user-male.png";
-import DefaultUserFemale from "../../../assets/images/common/default-user-female.png";
 import Bell from "../../../assets/images/svg/bell.svg";
 import Cart from "../../../assets/images/svg/cart-arrow-down.svg";
 import Bars from "../../../assets/images/svg/bars.svg";
+import Button from "../../../components/Button/Button";
+import LogOut from "../../../assets/images/svg/sign-out.svg";
 import Profile from "../../../assets/images/svg/user.svg";
 import Account from "../../../assets/images/svg/lock-alt.svg";
-import Cog from "../../../assets/images/svg/cog.svg";
+import FontAwesome from "../../../components/FontAwesome/FontAwesome";
+import DefaultUserMale from "../../../assets/images/common/default-user-male.png";
 import BtnCollapseNavbar from "../../../assets/images/svg/sort-alt.svg"
+import DefaultUserFemale from "../../../assets/images/common/default-user-female.png";
 
 class Header extends Component {
     constructor(props){
         super(props);
         this.state =  {
-            isCollapse: false
+            isCollapse: false,
+            redirect: false
         }
 
         this.headerBrand = React.createRef();
@@ -29,10 +34,6 @@ class Header extends Component {
         this.headerNavbarSubmenu = React.createRef();
     }
 
-    // componentWillUnmount = () => {
-    //     const headerNavbar = document.getElementById("header-navbar");
-    //     headerNavbar.style.maxHeight = "0px";
-    // }
     toggleSubMenu = () => {
         if(!this.headerNavbarSubmenu.current.classList.contains("submenu-header--slide-down")) {
             this.headerNavbarSubmenu.current.classList.add("submenu-header--slide-down");
@@ -42,7 +43,6 @@ class Header extends Component {
     }
 
     toggleSideNavbar = () => {
-        // const { isOpen } = this.props.stateOfModalPopupReducers;
         const sidebar = document.getElementById("sidebar");
         const hopeContent = document.getElementById("hope-content");
         
@@ -65,12 +65,6 @@ class Header extends Component {
             hopeContent.classList.remove("hope-content--shrink");
             hopeContent.classList.add("hope-content--stretch");
         }
-        console.log(sidebar);
-        // if(isOpen){
-        //     this.props.hidePopup({popupName: "collapseSideNavbar", popupProps: null});
-        // } else {
-        //     this.props.openPopup({popupName: "collapseSideNavbar", popupProps: null});
-        // }
     }
 
     toggleHeaderNavbar = () => {
@@ -96,9 +90,35 @@ class Header extends Component {
             /> 
         </button>
     )
+
+    logOutAccount = () => {
+        Swal.fire({
+            title: 'Are you sure want to log out?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Log out!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                removeLocalStorage("user_token");
+                removeLocalStorage("user_info");
+              this.setState({
+                  redirect: true
+              })
+            }
+          })
+    }
+
     render() {
-        const { isOpen } = this.props.stateOfModalPopupReducers;
-        const stretchClassName = isOpen ? "header--stretch" : "header--shrink";
+        const { user } = this.props.stateOfAuthReducers;
+        const userToken = getLocalStorage("user_token") || {};
+        if(this.state.redirect) return <Redirect to="/login" />
+
+        const gender = user.profile.gender ? user.profile.gender : "???";
+        const photoUrl = user.profile.photoUrl ? user.profile.photoUrl : "";    
+        const avatar = photoUrl ? photoUrl : (gender === "male" ? DefaultUserMale : DefaultUserFemale)
+
         return (
             <div className={`header`}>
                 <div className={`header-container `}>
@@ -150,15 +170,17 @@ class Header extends Component {
                             <ul className="menu">
                                 <li className="menu__item">
                                     <a className="menu__link">
-                                    <span className="menu__icon">
-                                        <FontAwesome 
-                                            className="menu__icon" 
-                                            src={Bell} 
-                                            width="23px" 
-                                            height="23px" 
-                                            alt="Bell icon"
-                                        />
-                                    </span>
+                                        <span className="menu__icon notifi-badge">
+                                            <FontAwesome 
+                                                className="menu__icon" 
+                                                src={Bell} 
+                                                width="23px" 
+                                                height="23px" 
+                                                alt="Bell icon"
+                                            />
+                                            <div className="dot"></div>
+                                            <div className="border"></div>
+                                        </span>
                                     </a>
                                 </li>
                                 <li className="menu__item">
@@ -172,57 +194,79 @@ class Header extends Component {
                                             />
                                         </span>
                                     </a>
-                                    </li>
-                                <li className="menu__item">
-                                    <a className="menu__link">
-                                        <span className="menu__avatar" onClick={this.toggleSubMenu}>
-                                            <img src={DefaultUserFemale} />
-                                        </span>
-                                    </a>
-                                    
-                                    <ul className={`submenu`} ref={this.headerNavbarSubmenu}>
-                                        <li className="submenu__item">
-                                            <a href="#" className="submenu__link">
-                                                <span className="submenu__icon">
-                                                    <FontAwesome 
-                                                        src={Profile} 
-                                                        width="20px" 
-                                                        height="20px" 
-                                                        alt="Cart icon"
-                                                    />
-                                                </span>
-                                                <span className="submenu__text">Your Profile</span>
-                                            </a>
-                                        </li>
-                                        <li className="submenu__item">
-                                            <a href="#" className="submenu__link">
-                                                <span className="submenu__icon">
-                                                    <FontAwesome 
-                                                        src={Account} 
-                                                        width="20px" 
-                                                        height="20px" 
-                                                        alt="Cart icon"
-                                                    />
-                                                </span>
-                                                <span className="submenu__text">Your Account</span>
-                                            </a>
-                                        </li>
-                                        <li className="submenu__item">
-                                            <a href="#" className="submenu__link">
-                                                <span className="submenu__icon">
-                                                        <FontAwesome 
-                                                            src={Cog} 
-                                                            width="20px" 
-                                                            height="20px" 
-                                                            alt="Cart icon"
-                                                        />
-                                                    </span>
-                                                <span className="submenu__text">Setting</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-        
                                 </li>
+                                    {
+                                        userToken.exp > Date.now() ? (
+                                                <li className="menu__item">
+                                                    <a className="menu__link">
+                                                        <span className="menu__avatar" onClick={this.toggleSubMenu}>
+                                                            <img src={avatar} />
+                                                        </span>
+                                                    </a>
+                                                    
+                                                    <ul className={`submenu`} ref={this.headerNavbarSubmenu}>
+                                                        <li className="submenu__item">
+                                                            <a href="#" className="submenu__link">
+                                                                <span className="submenu__icon">
+                                                                    <FontAwesome 
+                                                                        src={Profile} 
+                                                                        width="20px" 
+                                                                        height="20px" 
+                                                                        alt="Cart icon"
+                                                                    />
+                                                                </span>
+                                                                <span className="submenu__text">Your Profile</span>
+                                                            </a>
+                                                        </li>
+                                                        <li className="submenu__item">
+                                                            <a href="#" className="submenu__link">
+                                                                <span className="submenu__icon">
+                                                                    <FontAwesome 
+                                                                        src={Account} 
+                                                                        width="20px" 
+                                                                        height="20px" 
+                                                                        alt="Cart icon"
+                                                                    />
+                                                                </span>
+                                                                <span className="submenu__text">Your Account</span>
+                                                            </a>
+                                                        </li>
+                                                        <li className="submenu__item">
+                                                            <a href="#" className="submenu__link">
+                                                                <span className="submenu__icon">
+                                                                        <FontAwesome 
+                                                                            src={Cog} 
+                                                                            width="20px" 
+                                                                            height="20px" 
+                                                                            alt="Cart icon"
+                                                                        />
+                                                                    </span>
+                                                                <span className="submenu__text">Setting</span>
+                                                            </a>
+                                                        </li>
+                                                        <li className="submenu__item" onClick={this.logOutAccount}>
+                                                            <a href="#" className="submenu__link">
+                                                                <span className="submenu__icon">
+                                                                        <FontAwesome 
+                                                                            src={LogOut} 
+                                                                            width="20px" 
+                                                                            height="20px" 
+                                                                            alt="Log out icon"
+                                                                        />
+                                                                    </span>
+                                                                <span className="submenu__text">Log out</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                        ) : (
+                                            <li className="menu__item">
+                                                <Link className="menu__btn--login" to="/login">
+                                                    <Button className="btn--login">Login</Button>
+                                                </Link>
+                                            </li>
+                                        )
+                                    }
                             </ul>
                         </div>
                 </div>
@@ -235,7 +279,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        stateOfModalPopupReducers: state.ModalPopupReducers
+        stateOfAuthReducers: state.AuthReducers,
     }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -1,7 +1,10 @@
 import axios from "axios";
+import { getLocalStorage } from "./localStorage";
 
-const devUrl = "http://127.0.0.1:8080/api/v1/";
+const devUrl = "http://127.0.0.1:8080/api/v1";
 const prodUrl = "";
+const token = getLocalStorage("user_token") || {};
+
 export function callAPI(
     type,
     modal,
@@ -12,7 +15,7 @@ export function callAPI(
         Accept: "application/json",
         "Content-type": "application/json",
         "cache-control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
-        // "authorization": `Bearer ${}`
+        "authorization": `Bearer ${token.value}`
     }
 ) {
     return new Promise((resolve, reject) => {
@@ -28,7 +31,8 @@ export function callAPI(
                  resolve(response);
              })
              .catch((error) => {
-                 console.log(error);
+                 const { data } = error.response;
+                reject({error: data})
              })
         } else {
             reject({message: "Connecting Error"})

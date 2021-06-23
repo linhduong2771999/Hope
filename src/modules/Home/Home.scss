@@ -1,0 +1,21 @@
+.btn--remind{
+    @include resetAnchor;
+    outline: none;
+    cursor: pointer;
+    color: $grey-light-2;
+    font-size: calc(#{$fontSize-medium} - 2px);
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid $grey-light-2;
+    padding: .5rem 1rem;
+    transition: all .3s ease;
+    &:hover{
+        color: $default-white;
+        border: 2px solid $default-white;
+    }
+    > img {
+        margin-left: .5rem;
+        vertical-align: middle;
+        filter: invert(100%) sepia(0%) saturate(7492%) hue-rotate(340deg) brightness(105%) contrast(103%);
+    }
+}

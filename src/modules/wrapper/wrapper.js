@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { ToastContainer  } from "react-toastify";
 //import component
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
@@ -16,10 +16,10 @@ class Wrapper extends Component {
   }
   
   render() {
-    console.log("Wrapper render !!!");
     return (
       
       <div className="hope">
+        <ToastContainer style={{maxWidth: "700px", width: "auto"}} />
         <Header  toggleSidebarResponsive={this.toggleSidebarResponsive} />
         {/*
         */}

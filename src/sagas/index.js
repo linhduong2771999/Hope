@@ -1,8 +1,10 @@
 import { all, fork } from "redux-saga/effects";
 import { flatten } from 'lodash/array';
 import { values } from 'lodash/object';
-const sagaList = [
 
+import AuthSagas from "../modules/Auth/sagas/AuthSagas";
+const sagaList = [
+    AuthSagas
 ]
 
 export default function* () {

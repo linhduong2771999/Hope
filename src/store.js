@@ -15,8 +15,8 @@ const middlewares = [sagasMiddleware, loggerMiddlware];
 export default (initialState = {}) => {
     const store = createStore(
         rootReducer,
-        // applyMiddleware(...middlewares)
+        applyMiddleware(...middlewares)
     )
-    // sagasMiddleware.run(Saga)
+    sagasMiddleware.run(Saga)
     return { store }
 }

@@ -21,9 +21,55 @@
         @include size(100%);
         .sidebar-main{
             @include size(100%);
+            .profile{
+                padding: 0 1.5rem;
+                display: flex;
+                align-items: center;
+                overflow: hidden;
+                &__img{
+                    padding: .5rem 0;
+                    > img {
+                        @include size(45px);
+                        border-radius: 10px;
+                        -webkit-box-shadow: 4px 3px 13px 0px rgba(0,0,0,0.75);
+                        -moz-box-shadow: 4px 3px 13px 0px rgba(0,0,0,0.75);
+                        box-shadow: 4px 3px 6px 0 rgba(0,0,0,0.30);                    }
+                }
+                &__info{
+                    margin-left: .75rem;
+                    line-height: 25px;
+                }
+                &__info-fullname{
+                    font-size: calc(#{$fontSize-medium} - 2px);
+                    font-weight: bold;
+                    line-height: 18px;
+                }
+                &__info-name{
+                    font-size: $fontSize-small;
+                    color: $grey-bold-3;
+                    letter-spacing: .5px;
+                }
+            }
+            .main{
+                padding: 1rem 1.5rem;
+                p{
+                    font-size: calc(#{$fontSize-small} + 1px);
+                    color: $grey-bold-2;
+                    font-weight: 600;
+                    white-space: nowrap; 
+                    width: 100%; 
+                    overflow: hidden;
+                    text-overflow: ellipsis; 
+                    &::before{
+                        content: "--";
+                        margin-right: .5rem;
+                    }
+                }
+            }
             .menu{
                 margin: 0;
                 padding: 0;
+                overflow: hidden;
                 &__item{
                     display: block;
                     position: relative;
@@ -102,6 +148,20 @@
     @include animation(0s, .6s, sidebar--shrinkY, ease);
     .sidebar-wrap{
         .sidebar-main{
+            .profile{
+                padding: .0rem 11px;
+                &__img{
+                    > img {
+                      @include size(40px);  
+                    }
+                }
+                &__info{
+                    > p {
+                        display: none;
+                    }
+                }
+            }
+            .main{ display: none; }
             .menu{
                 &__icon{
                     > img {

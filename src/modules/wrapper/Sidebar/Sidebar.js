@@ -1,19 +1,21 @@
 import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
-// action
 import { ModalPopupActions } from "../../../store/actions/index";
-// component
-import FontAwesome from "../../../components/FontAwesome/FontAwesome";
-import HomeFont from "../../../assets/images/svg/home.svg";
-import ShoppingBasket from "../../../assets/images/svg/shopping-basket.svg";
-import NewsPaper from "../../../assets/images/svg/newspaper.svg";
-import UserCog from "../../../assets/images/svg/user-cog.svg";
-import GamePad from "../../../assets/images/svg/gamepad.svg";
-import Logo from "../../../assets/images/common/logo.png";
-
 import { setLocalStorage, getLocalStorage } from "../../../helpers/localStorage";
+
+// Components
+import HomeFont from "../../../assets/images/svg/home.svg";
+import GamePad from "../../../assets/images/svg/gamepad.svg";
+import UserCog from "../../../assets/images/svg/user-cog.svg";
+import NewsPaper from "../../../assets/images/svg/newspaper.svg";
+import FontAwesome from "../../../components/FontAwesome/FontAwesome";
+import ShoppingBasket from "../../../assets/images/svg/shopping-basket.svg";
+import DefaultUserMale from "../../../assets/images/common/default-user-male.png"
+import DefaultUserFemale from "../../../assets/images/common/default-user-female.png"
+
+// Menu's info
 const listOfMenu = [
   {
     key: "menu0",
@@ -73,8 +75,8 @@ class Sidebar extends Component {
   } 
 
   componentDidMount = () => {
-      const selectedLinkIndex = getLocalStorage("sidebar-menu-item-selected") || "";
-      if(selectedLinkIndex !== undefined && selectedLinkIndex.startsWith("submenu")) this.toggleSubmenu();
+      const selectedLinkIndex = getLocalStorage("sidebar-menu-item-selected") || {};
+      if(selectedLinkIndex.value !== undefined && selectedLinkIndex.value.startsWith("submenu")) this.toggleSubmenu();
       this.props.openPopup({popupName: "collapseSideNavbar", popupProps: null});
   }
 
@@ -174,23 +176,35 @@ class Sidebar extends Component {
   toggleSidebarResponsive = () => {
     if(this.sidebarNavbar.current.style.marginLeft === "0px"){
       this.sidebarNavbar.current.style.marginLeft = "-270px";
-  } else {
-      this.sidebarNavbar.current.style.marginLeft = "0";
-  }
+    } else {
+        this.sidebarNavbar.current.style.marginLeft = "0";
+    }
   }
   render() {
-    const {isOpen} = this.props.stateOfModalPopupReducers;
-    // const stretchClassName = isOpen ? "sidebar--stretch" : "sidebar--shrink";
+    const { user } = this.props.stateOfAuthReducers;
+
+    const fullName = user.profile.full_name ? user.profile.full_name : "???";
+    const gender = user.profile.gender ? user.profile.gender : "???"; 
+    const photoUrl = user.profile.photoUrl ? user.profile.photoUrl : "";
+    const avatar =  photoUrl ? photoUrl : (gender === "male" ? DefaultUserMale : DefaultUserFemale); 
+    const name = user.name ? user.name : "???"; 
+    const email = user.email ? user.email : "???"; 
+
     return (
       <div className={`sidebar`} id="sidebar" ref={this.sidebarNavbar}>
         <div className="sidebar-wrap">
-          <div className="sidebar-header">
-            
-          </div>
           <div className="sidebar-main">
             <div className="profile">
-              <div className="profile__img"></div>
-              <div className="profile__info"></div>
+              <div className="profile__img">
+                  <img src={avatar} />
+              </div>
+              <div className="profile__info">
+                  <p className="profile__info-fullname">{fullName}</p>
+                  <p className="profile__info-name">{name}</p>
+              </div>
+            </div>
+            <div className="main">
+                <p className="email">{email}</p>
             </div>
             {this.renderMenu()}
           </div>
@@ -202,7 +216,7 @@ class Sidebar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    stateOfModalPopupReducers: state.ModalPopupReducers
+    stateOfAuthReducers: state.AuthReducers
   }
 }
 
@@ -213,4 +227,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef : true})(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
