@@ -232,7 +232,7 @@ class Header extends Component {
                                                             </a>
                                                         </li>
                                                         <li className="submenu__item">
-                                                            <a href="#" className="submenu__link">
+                                                            <Link href="#" className="submenu__link" to="/profile">
                                                                 <span className="submenu__icon">
                                                                         <FontAwesome 
                                                                             src={Cog} 
@@ -242,7 +242,7 @@ class Header extends Component {
                                                                         />
                                                                     </span>
                                                                 <span className="submenu__text">Setting</span>
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                         <li className="submenu__item" onClick={this.logOutAccount}>
                                                             <a href="#" className="submenu__link">

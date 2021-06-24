@@ -14,7 +14,10 @@ class App extends Component {
   }
 
   render() {
-    if(this.props.loadingFromCheckedLogin) return <LoadingPage />
+
+    {/*
+      if(this.props.loadingFromCheckedLogin) return <LoadingPage />
+    */}
     return (
         <Router />
     );
