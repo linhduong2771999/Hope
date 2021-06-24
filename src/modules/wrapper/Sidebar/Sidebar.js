@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, forwardRef } from "react";
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -227,4 +227,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef : true })(Sidebar);
