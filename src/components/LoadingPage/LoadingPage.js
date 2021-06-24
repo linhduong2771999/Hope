@@ -20,10 +20,6 @@ class LoadingPage extends Component {
             this.progressBarRef.current.style.width = count + "%";
             count++
             }
-            //  else {
-            //     this.pageLoadingRef.current.style.opacity = "0";
-            //     this.pageLoadingRef.current.style.visibility = "visible";
-            // }
         }, 16);
     }
 
@@ -33,6 +29,7 @@ class LoadingPage extends Component {
     }
 
     render() {
+        // test branch
         return (
             <div className="page-loading" ref={this.pageLoadingRef}>
                 <div className="content">
