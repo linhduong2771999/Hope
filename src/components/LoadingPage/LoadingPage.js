@@ -29,7 +29,7 @@ class LoadingPage extends Component {
     }
 
     render() {
-        // test
+        // test branch
         return (
             <div className="page-loading" ref={this.pageLoadingRef}>
                 <div className="content">
