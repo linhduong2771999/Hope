@@ -20,10 +20,6 @@ class LoadingPage extends Component {
             this.progressBarRef.current.style.width = count + "%";
             count++
             }
-            //  else {
-            //     this.pageLoadingRef.current.style.opacity = "0";
-            //     this.pageLoadingRef.current.style.visibility = "visible";
-            // }
         }, 16);
     }
 
