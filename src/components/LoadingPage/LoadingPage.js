@@ -29,6 +29,7 @@ class LoadingPage extends Component {
     }
 
     render() {
+        // test
         return (
             <div className="page-loading" ref={this.pageLoadingRef}>
                 <div className="content">
