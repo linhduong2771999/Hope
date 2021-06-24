@@ -1,0 +1,37 @@
+.page-network-error{
+    @include size(100%, 100vh);
+    background-color: $default-black;
+    color: $default-white;
+    .container{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .pne-header{
+            @include size(150px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: $default-white;
+            &__logo > img {
+                display: block;
+                border-radius: 50%;
+                @include size(100px);
+            }
+        }
+        .pne-body{
+            margin-top: 2.5rem;
+            text-align: center;
+            &__title{
+                color: $green;
+            }
+            &__description{
+                margin-top: 1rem;
+                line-height: 25px;
+            }
+        }
+    }
+}

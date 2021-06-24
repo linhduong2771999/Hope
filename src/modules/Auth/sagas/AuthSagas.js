@@ -14,8 +14,10 @@ function* handleLoginAccountRequest(action) {
       callBack && callBack();
     }
   } catch (error) {
-    yield put(AuthActions.loginAccountError(error));
-    fallBack && fallBack(error.error.message);
+    if(error.statusText === "Error"){
+      yield put(AuthActions.loginAccountError(error));
+      fallBack && fallBack(error.message);
+    }
   }
 }
 
@@ -30,8 +32,10 @@ function* handleSignupAccountRequest(action) {
       callBack && callBack();
     }
   } catch (error) {
-    yield AuthActions.signupAccountError(error);
-    fallBack && fallBack(error.error.message);
+    if(error.statusText === "Error"){
+      yield AuthActions.signupAccountError(error);
+      fallBack && fallBack(error.message);
+    }
   }
 }
 
@@ -45,9 +49,11 @@ function* handleCheckedLoginAccountRequest(action) {
       yield put(AuthActions.checkedLoginAccountSuccess(data.user))
     }
   } catch (error) {
+    const { callBack } = action.payload
     removeLocalStorage("user_token");
     removeLocalStorage("user_info");
     yield put(AuthActions.checkedLoginAccountError(error))
+    callBack && callBack();
   }
 }
 

@@ -31,8 +31,12 @@ export function callAPI(
                  resolve(response);
              })
              .catch((error) => {
-                 const { data } = error.response;
-                reject({error: data})
+                 const errorResponse = ( ((error || {}).response || {}).data || {} ); // deeply check
+                 if(error.message === "Network Error") {
+                     reject(error)
+                    } else {
+                     reject(errorResponse)
+                 }
              })
         } else {
             reject({message: "Connecting Error"})

@@ -1,5 +1,6 @@
 @import "../../assets/sass/constants/variables";
 @import "../../assets/sass/constants/mixin.scss";
+@import "../../assets/sass/constants/responsive.scss";
 .page-loading{
     width: 100%;
     height: 100vh;
@@ -20,12 +21,13 @@
             .brand{
                 &__logo{
                     margin-right: .5rem;
-                    border-top-left-radius: 75px;
-                    border-top-right-radius: 75px;
-                    border-bottom-left-radius: 45px;
-                    border-bottom-right-radius: 45px;
+                    border-top-left-radius: 25px;
+                    border-top-right-radius: 25px;
+                    border-bottom-left-radius: 15px;
+                    border-bottom-right-radius: 15px;
                     vertical-align: bottom;
-                    @include animation(0s, .5s, spinning, ease);
+                    @include animation(0s, 2s, spinning, ease,);
+                    animation-timing-function: linear;
                     animation-iteration-count: infinite;
                 }  
             }
@@ -35,7 +37,14 @@
                 line-height: 48px;
             }
         }
+        .text{
+            text-align: center;
+            font-weight: bold;
+        }
         .progress-bar{
+            @include responsive(XS){
+                width: 200px;
+            }
             width: 400px;
             height: 10px;
             background-color: $grey-bold;
@@ -50,11 +59,11 @@
     }
 }
 
-// @keyframes spinning {
-//     0%{
-//         transform: rotate(0);
-//     }
-//     100%{
-//         transform: rotate(360deg);
-//     }
-// }
+@keyframes spinning {
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
