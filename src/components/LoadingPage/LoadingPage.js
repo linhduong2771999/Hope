@@ -19,9 +19,6 @@ class LoadingPage extends Component {
             
             this.progressBarRef.current.style.width = count + "%";
             count++
-            } else {
-                this.pageLoadingRef.current.style.opacity = "0";
-                this.pageLoadingRef.current.style.visibility = "visible";
             }
         }, 16);
     }
@@ -32,6 +29,7 @@ class LoadingPage extends Component {
     }
 
     render() {
+        // test branch
         return (
             <div className="page-loading" ref={this.pageLoadingRef}>
                 <div className="content">
@@ -45,7 +43,9 @@ class LoadingPage extends Component {
                                 alt="Hope logo"
                             />
                         </div>
-                        <span className="title">Atrio</span>
+                    </div>
+                    <div className="text">
+                        <p>Please wait...</p>
                     </div>
                     <div className="progress-bar">
                         <div ref={this.progressBarRef} className="progress"></div>
