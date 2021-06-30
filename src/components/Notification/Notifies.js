@@ -15,7 +15,7 @@ export const validateErrorNotification = (message) => {
 
     return toast.error(`❌ ${message}`, {
         position: toast.POSITION.TOP_LEFT,
-        autoClose: 2000,
+        autoClose: 3000,
       })
 }
 

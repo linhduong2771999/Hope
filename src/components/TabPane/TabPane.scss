@@ -1,0 +1,15 @@
+@import "../../assets/sass/constants/mixin.scss";
+
+.tabpane{
+    @include animation(0, .3s, fade-tabpane, ease);
+    @keyframes fade-tabpane {
+        0%{
+            opacity: 0;
+            visibility: hidden;
+        } 
+        100%{
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}

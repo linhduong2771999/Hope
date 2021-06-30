@@ -57,6 +57,40 @@ function* handleCheckedLoginAccountRequest(action) {
   }
 }
 
+function* handleFotgotPasswordRequest(action){
+  const { email, callBack, fallBack } = action.payload; 
+  try {
+    const { data } = yield call(AuthApis.forgotPassword, {email});
+
+    if(data.statusText === "OK"){
+      yield put(AuthActions.forgotPasswordSuccess());
+      callBack && callBack(data.message);
+    }
+
+  } catch (error) {
+    if(error.statusText === "Error") {
+      yield put(AuthActions.forgotPasswordError(error));
+      fallBack && fallBack(error.message);
+    }
+  }
+}
+
+function* handleResetPasswordRequest(action) {
+  const { account, resetToken, callBack, fallBack } = action.payload;
+  try {
+    const { data } = yield call(AuthApis.resetPassword, account, resetToken);
+    if(data.statusText === "OK"){
+      yield put(AuthActions.resetPasswordSuccess());
+      callBack && callBack(data.message);
+    }
+  } catch (error) {
+    if(error.statusText === "Error"){
+      yield put(AuthActions.resetPasswordError(error));
+      fallBack && fallBack(error.message)
+    }
+  }
+}
+
 function* loginAccountRequest() {
   yield takeEvery(AuthActions.LOGIN_ACCOUNT_REQUEST, handleLoginAccountRequest);
 }
@@ -69,8 +103,18 @@ function* checkedLoginAccountRequest() {
   yield takeEvery(AuthActions.CHECKED_LOGIN_ACCOUNT_REQUEST, handleCheckedLoginAccountRequest);
 }
 
+function* forgotPasswordRequest(){
+  yield takeEvery(AuthActions.FORGOT_PASSWORD_REQUEST, handleFotgotPasswordRequest)
+}
+
+function* resetPasswordRequest(){
+  yield takeEvery(AuthActions.RESET_PASSWORD_REQUEST, handleResetPasswordRequest);
+}
+
 export default {
   loginAccountRequest,
   signupAccountRequest,
+  resetPasswordRequest,
+  forgotPasswordRequest,
   checkedLoginAccountRequest
 };

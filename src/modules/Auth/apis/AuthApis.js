@@ -12,3 +12,11 @@ export const loginAccount = (account) => {
 export const signupAccount = (account) => {
     return callAPI(type.SIGN_UP, model.ACCOUNT, "auths/signup", "POST", account)
 }
+
+export const forgotPassword = (email) => {
+    return callAPI(type.UPDATE, model.ACCOUNT, "auths/forgotPassword", "POST", email)
+}
+
+export const resetPassword = (account, resetToken) => {
+    return callAPI(type.UPDATE, model.ACCOUNT, `auths/resetPassword/${resetToken}`, "PATCH", account)
+}

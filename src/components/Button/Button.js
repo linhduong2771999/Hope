@@ -4,7 +4,7 @@ import "./Button.scss"
 
 const Button = ({type, onClick, className, children}) => {
     return (
-        <button type={type} onClick={onClick} className={className}>
+        <button type={type} onClick={onClick} className={`btn-default ${className}`}>
             {children}
         </button>
     );

@@ -1,14 +1,16 @@
 import React from "react";
 import PropsTypes from "prop-types";
 
-const FontAwesome = (props) => {
+import "./FontAwesome.scss";
+
+const FontAwesome = ({src, className , color, width, height, alt}) => {
   return (
     <img
-      src={props.src}
-      className={props.className}
-      width={props.width}
-      height={props.height}
-      alt={props.alt || "Unvalid images."}
+      src={src}
+      className={`${className} ${color === "white" ? "default-font-white" : ""}`}
+      width={width}
+      height={height}
+      alt={alt || "Unvalid images."}
     />
   );
 };
@@ -18,7 +20,8 @@ FontAwesome.propsTypes = {
   className: PropsTypes.string,
   width: PropsTypes.string.isRequired,
   height: PropsTypes.string.isRequired,
-  alt: PropsTypes.string
+  alt: PropsTypes.string,
+  color: PropsTypes.string
 };
 
 export default FontAwesome;

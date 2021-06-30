@@ -1,18 +1,16 @@
 .hope{
     .hope-content{
-        margin-left: 270px;
+        margin-left: 254px;
         margin-top: 70px;
         padding: 1rem 2rem;
         @include responsive(SM){
             padding: 0 2rem;
-            margin-left: 0;
+            margin-left: 0!important;
             margin-top: 50px;
         }
-        div{
-            background-color: #ccc;
-            text-align: right;
-            @include size(100%);
-        }
+        // div{
+        //     @include size(100%);
+        // }
     }
 }
 

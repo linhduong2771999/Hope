@@ -26,7 +26,7 @@ const authReducers = (state = initialState, action) => {
                 // isAuthenticated: false,
                 error: action.payload
             }
-
+        /*-----@@-----*/
         case "SIGNUP_ACCOUNT_REQUEST": {
             return {
                 ...state
@@ -44,7 +44,7 @@ const authReducers = (state = initialState, action) => {
                 ...state
             }
         }   
-
+        /*-----@@-----*/
         case "CHECKED_LOGIN_ACCOUNT_REQUEST":
             return{
                 ...state
@@ -56,11 +56,43 @@ const authReducers = (state = initialState, action) => {
                 user
             }
         }
-        case "CHECKED_LOGIN_ACCOUNT_ERROR":
+        case "CHECKED_LOGIN_ACCOUNT_ERROR": {
             return{
                 ...state
             }
-
+        }
+        /*-----@@-----*/
+        case "FORGOT_PASSWORD_REQUEST": {
+            return{
+                ...state
+            }
+        }
+        case "FORGOT_PASSWORD_SUCCESS": {
+            return{
+                ...state
+            }
+        }
+        case "FORGOT_PASSWORD_ERROR": {
+            return{
+                ...state
+            }
+        }
+        /*-----@@-----*/
+        case "RESET_PASSWORD_REQUEST": {
+            return{
+                ...state
+            }
+        }
+        case "RESET_PASSWORD_SUCCESS": {
+            return{
+                ...state
+            }
+        }
+        case "RESET_PASSWORD_ERROR": {
+            return{
+                ...state
+            }
+        }
         default:
             return {
                 ...state
