@@ -1,0 +1,369 @@
+.profile{
+    @mixin title {
+        font-size: calc(#{$fontSize-medium} - 1px);
+        color: $text-brown;
+        margin-bottom: 2rem;
+    }
+    @mixin text-paragraph {
+        line-height: 20px;
+        font-size: calc(#{$fontSize-small} + 1px);
+    }
+    .profile-container{
+        .row{
+            @include responsive(LG){
+                flex-direction: column;
+            }
+            .col-responsive-contact{
+                @include responsive(LG){
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+                .card-contact{
+                    width: 100%;
+                    overflow: hidden;
+                    border-radius: 10px;
+                    margin-bottom: 1.5rem;
+                    background-color: $default-white;
+                    .card-header{
+                        min-height: 150px;
+                        text-align: center;
+                        color: $default-white;
+                        background-color: $brown-bold-3;
+                        .title{
+                            font-size: calc(#{$fontSize-medium} + 5px);
+                            padding-top: .75rem;
+                        }
+                        .career{
+                            font-size: calc(#{$fontSize-small} + 2px);
+                            padding-top: .5rem;
+                        }
+                    }
+                    .card-body{
+                        text-align: center;
+                        .avatar{
+                            margin-top: -70px;
+                            margin-bottom: 1.5rem;
+                            > img {
+                                display: block;
+                                margin: 0 auto;
+                                padding: 3px;
+                                object-fit: cover;
+                                border-radius: 50%;
+                                box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3);
+                            }
+                        }
+                        .address{
+                            width: 250px;
+                            max-width: 250px;
+                            margin: 0 auto;
+                            margin-bottom: 1.5rem;
+                            font-size: $fontSize-small;
+                        }
+                        .phone{
+                            margin-bottom: 1.25rem;
+                            font-size: calc(#{$fontSize-small} + 2px);
+                            span{
+                                margin-left: .5rem;
+                            }
+                        }
+                        .social{
+                            &__following, 
+                            &__followers, 
+                            &__posts{
+                                text-align: center;
+                                margin-bottom: 1.5rem;
+                                h3{
+                                    font-weight: 600;
+                                    margin-bottom: .5rem;
+                                    font-size: $fontSize-medium; 
+                                }
+                                p{
+                                    color: $grey-bold-2; 
+                                    font-size: calc(#{$fontSize-small} - 2px);
+                                }
+                            }
+                        }
+                    }
+                }
+                .card-about{
+                    .tabs{
+                        border-bottom: 1px solid #eee;
+                        .tab{
+                            &:first-child{
+                                margin-right: 1rem;
+                                margin-left: .5rem;
+                            }
+                            .tab-item--active{
+                                box-shadow: 0px 0px 0px 1px rgba(170, 166, 166, 0.75);
+                                -webkit-box-shadow: 0px 0px 0px 1px rgba(170, 166, 166, 0.75);
+                                -moz-box-shadow: 0px 0px 0px 1px rgba(170, 166, 166, 0.75);
+                                color: $default-black;
+                                &:before{
+                                    transform: scaleX(1)!important;
+                                }
+                            }
+                            button{
+                                color: $grey-bold-2;
+                                padding: .5rem 1rem;
+                                position: relative;
+                                border-radius: 3px;
+                                font-size: $fontSize-small;
+                                border-bottom-left-radius: 0;
+                                border-bottom-right-radius: 0;
+                                background-color: transparent;
+                                @include transition(all .3s ease);
+                                &:hover{
+                                    box-shadow: 0px 0px 0px 1px rgba(170, 166, 166, 0.75);
+                                    -webkit-box-shadow: 0px 0px 0px 1px rgba(170, 166, 166, 0.75);
+                                    -moz-box-shadow: 0px 0px 0px 1px rgba(170, 166, 166, 0.75);
+                                }
+                                &:before{
+                                    @include transition(all .3s ease);
+                                    content: "";
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 2px;
+                                    transform: scaleX(0);
+                                    background-color: $default-black;
+                                }
+                            }
+                        }
+                        
+                    }
+                    .tabpane.about{
+                        padding: 1.5rem .75rem 1.5rem .75rem;
+                        p{
+                            color: $text-brown;
+                            white-space: normal;
+                            margin-bottom: 1.5rem;
+                            line-height: 24px;
+                            font-size: calc(#{$fontSize-small} + 1px);
+                        }
+                        .email-address, .phone{
+                            border-bottom: 1px solid #eee;
+                            label{
+                                color: $grey-bold-2;
+                                font-size: $fontSize-small;
+                            }
+                            p{
+                                margin-bottom: 1rem;
+                            }
+                        }
+                    }
+                    .tabpane.skills{
+                        padding: 1.5rem .75rem 1.5rem .75rem;
+                        ul{
+                            margin: 0;
+                            padding: 0;
+                            list-style-type: none;
+                            li{
+                                margin-bottom: 1.5rem;
+                                p{
+                                    color: $text-brown;
+                                    margin-bottom: .5rem;
+                                    font-size: $fontSize-small;
+                                }
+                                .progress-bar{
+                                    width: 100%;
+                                    height: 15px;
+                                    position: relative;
+                                    background-color: #eee;
+                                    .progress{
+                                        height: 15px;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // End of "about column"
+            .col-responsive-setting{
+                @include responsive(LG){
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+                .card-menu{
+                    padding: 1.75rem 2rem;
+                    margin-bottom: 2rem;
+                    .tabs{
+                        .tab{
+                            &:first-child{
+                                margin-right: 2rem;
+                                margin-left: .25rem;
+                            }
+                            .tab-item--active{
+                                box-shadow: 0 5px 20px 0 rgba(0,0,0,0.2), 0 13px 24px -11px rgba(233, 30, 99 , 0.2);
+                                color: $default-white;
+                                background-color: $red-bold;
+                                &:before{
+                                    transform: scaleX(1)!important;
+                                }
+                            }
+                            button{
+                                padding: 10px 1rem;
+                                border-radius: 20px;
+                                vertical-align: middle;
+                                color: $grey-bold-2;
+                                background-color: transparent;
+                                @include transition(all .2s ease);
+                                font-size: calc(#{$fontSize-small} + 1px);
+                            }
+                        }
+                    }
+                }
+                .card-about{
+                    .about-content{
+                        padding: 1rem;
+                        margin-bottom: 2rem;
+                        .title{
+                            @include title
+                        }
+                        .user-info{
+                            justify-content: space-between;
+                            flex-direction: row;
+                            margin-bottom: 3rem;
+                            &__name,
+                            &__phone,
+                            &__dob,
+                            &__country{
+                                @include responsive(LG){
+                                    flex: 0 0 50%;
+                                    max-width: 50%;
+                                    margin-bottom: 1.5rem;
+                                }
+                                p{
+                                    &:nth-child(2){
+                                        color: $grey-bold-2;
+                                    }
+                                    margin: 0;
+                                    @include text-paragraph;
+                                }
+                            }
+                        }
+                        .user-aboutme{
+                            .text{
+                                @include text-paragraph;
+                                letter-spacing: .5px;
+                            }
+                        }
+                    }
+                    .description-content{
+                        padding: 1rem;
+                        margin-bottom: 2rem;
+                        .title{
+                            @include title
+                        }
+                        .text{
+                            @include text-paragraph;
+                            letter-spacing: .5px;
+                        }
+                    }
+                    .update-content{
+                        padding: 1rem;
+                        .title{
+                            @include title
+                        }
+                        .text{
+                            @include text-paragraph;
+                        }
+                        .action{
+                            width: 100%;
+                            text-align: right;
+                            button{
+                                border-radius: 10px;
+                                padding: .75rem 1.25rem;
+                                color: $default-white;
+                                background-color: $brown-bold;
+                                cursor: pointer;
+                                @include transition(all .3s ease);
+                                &:hover{
+                                    box-shadow: 0 5px 20px 0 rgba(0,0,0,0.2), 0 13px 24px -11px rgba(233, 30, 99 , 0.2);
+                                }
+                                img{
+                                    vertical-align: bottom;
+                                    margin-right: .5rem;
+                                }
+                                span{ 
+                                    vertical-align: bottom;
+                                    font-size: calc(#{$fontSize-small} + 2px);
+                                }
+                            }
+                        }
+                    }
+                }
+                .card-settings{ 
+                    .update-password,
+                    .reset-password{
+                        .title{
+                            span,
+                            strong,
+                            img{
+                                vertical-align: middle;
+                            }
+                            strong{
+                                font-weight: bold;
+                                margin-right: .5rem
+                            }
+                            img{
+                                margin-right: .5rem
+                            }
+                            @include title;
+                        }
+                    }
+                    .update-password{
+                        padding: 1rem;
+                        margin-bottom: 2rem;
+                        form{
+                            .input-group{
+                                margin-bottom: 1rem;
+                                input[type="text"],
+                                input[type="password"] {
+                                    border: none;
+                                    outline: none;
+                                    padding: .75rem 0;
+                                    @include transition(all .1s ease);
+                                    border-bottom: 1px solid $brown-bold;
+                                    &:focus{
+                                        border-bottom: 2px solid $brown-bold;
+                                    }
+                                }
+                                .input-errors{
+                                    color: red;
+                                    font-size: $fontSize-small;
+                                }
+                            }
+                            .submit-btn{
+                                button{
+                                    cursor: pointer;
+                                    border-radius: 3px;
+                                    padding: 12px .75rem;
+                                    color: $default-white;
+                                    background-color: $blue-4;
+                                    text-transform: uppercase;
+                                    letter-spacing: .5px;
+                                    font-size: calc(#{$fontSize-small} - 1px);
+                                    box-shadow: 0 2px 5px rgba(0, 0, 0, .16), 0 2px 10px rgba(0, 0, 0 , .12);
+                                }
+                            }
+                        }
+                    }
+                    .reset-password{
+                        padding: 1rem;
+                        .content{
+                            .text{ 
+                                @include title; 
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

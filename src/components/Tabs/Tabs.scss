@@ -1,0 +1,13 @@
+@import "../../assets/sass/constants/mixin.scss";
+.tabs{
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    .tab{
+        display: inline-block;
+        a{
+            @include resetAnchor;
+        }
+    }
+}

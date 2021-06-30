@@ -4,7 +4,7 @@ import "./Input.scss";
 
 const Input = React.forwardRef(
   (
-    { type, name, value, onChange, className, placeholder, defaultChecked, onFocus, onBlur },
+    { type, name, value, onChange, className, placeholder, defaultChecked, autoComplete, onFocus, onBlur },
     ref
   ) => {
     return (
@@ -19,6 +19,7 @@ const Input = React.forwardRef(
         className={className}
         placeholder={placeholder}
         defaultChecked={defaultChecked}
+        autoComplete={autoComplete}
       />
     );
   }
@@ -43,7 +44,8 @@ Input.propsTypes = {
   value: PropsTypes.oneOfType([PropsTypes.string, PropsTypes.number]),
   className: PropsTypes.string,
   placeholder: PropsTypes.string,
-  defaultChecked: PropsTypes.string
+  defaultChecked: PropsTypes.string,
+  autoComplete: PropsTypes.string
 };
 
 export default Input;

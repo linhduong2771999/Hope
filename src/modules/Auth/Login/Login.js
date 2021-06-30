@@ -150,7 +150,7 @@ class Login extends Component {
       </div>
       {this.renderInput(formData)}
       <div className="forgot-password">
-        <Link to="/">
+        <Link to="/forgotPassword">
             Forgot password?
         </Link>
       </div>

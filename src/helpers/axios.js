@@ -3,7 +3,21 @@ import { getLocalStorage } from "./localStorage";
 
 const devUrl = "http://127.0.0.1:8080/api/v1";
 const prodUrl = "";
-const token = getLocalStorage("user_token") || {};
+
+axios.interceptors.request.use((config) => {
+    const token = getLocalStorage("user_token") || {}; // token = {value, expired}
+    if(token.toString() !== "{}" && token.value) {
+        config.headers.authorization = `Bearer ${token.value}`
+    }
+    return config
+}, (error) => {
+    return Promise.reject(error);
+})
+
+axios.interceptors.response.use(
+    (response) => response, 
+    (error) => Promise.reject(error)
+)
 
 export function callAPI(
     type,
@@ -15,7 +29,7 @@ export function callAPI(
         Accept: "application/json",
         "Content-type": "application/json",
         "cache-control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
-        "authorization": `Bearer ${token.value}`
+        // "authorization": `Bearer ${token.value}`
     }
 ) {
     return new Promise((resolve, reject) => {

@@ -206,7 +206,7 @@ class Header extends Component {
                                                     
                                                     <ul className={`submenu`} ref={this.headerNavbarSubmenu}>
                                                         <li className="submenu__item">
-                                                            <a href="#" className="submenu__link">
+                                                            <Link  to="/profile" className="submenu__link">
                                                                 <span className="submenu__icon">
                                                                     <FontAwesome 
                                                                         src={Profile} 
@@ -216,10 +216,10 @@ class Header extends Component {
                                                                     />
                                                                 </span>
                                                                 <span className="submenu__text">Your Profile</span>
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                         <li className="submenu__item">
-                                                            <a href="#" className="submenu__link">
+                                                            <Link to="/profile" className="submenu__link">
                                                                 <span className="submenu__icon">
                                                                     <FontAwesome 
                                                                         src={Account} 
@@ -229,10 +229,10 @@ class Header extends Component {
                                                                     />
                                                                 </span>
                                                                 <span className="submenu__text">Your Account</span>
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                         <li className="submenu__item">
-                                                            <Link href="#" className="submenu__link" to="/profile">
+                                                            <Link to="/profile" className="submenu__link" to="/profile">
                                                                 <span className="submenu__icon">
                                                                         <FontAwesome 
                                                                             src={Cog} 

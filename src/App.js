@@ -28,15 +28,12 @@ class App extends Component {
 
   render() {
     {/*
+      if(this.props.loadingFromCheckedLogin) return <LoadingPage />
+      if(this.state.redirect) return <PageNetworkError />
     */}
-    if(this.props.loadingFromCheckedLogin) return <LoadingPage />
-    if(this.state.redirect) return <PageNetworkError />
     return (
       <h1>
-        Hotfix: Network error
         <Router />
-      {/*
-      */}
       </h1>
     );
   }
