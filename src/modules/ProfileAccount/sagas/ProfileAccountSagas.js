@@ -1,7 +1,7 @@
 import * as ProfileApis from "../apis/ProfileAccountApis";
 import { call, put, takeEvery } from "redux-saga/effects";
 import { ProfileAccountActions } from "../../../store/actions/index";
-import { setLocalStorage, removeLocalStorage } from "../../../helpers/localStorage";
+import { removeLocalStorage } from "../../../helpers/localStorage";
 
 function* handleUpdatePasswordRequest(action){
     const { account, callBack, fallBack } = action.payload;

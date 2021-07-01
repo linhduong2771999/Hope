@@ -9,7 +9,13 @@ function* handleLoginAccountRequest(action) {
     const {data} = yield call(AuthApis.loginAccount, account);
     if(data.statusText === "OK"){
       setLocalStorage("user_token", data.token, {month: 1});
-      setLocalStorage("user_info", data.user, {month: 1});
+      setLocalStorage("user_info", {
+        name: data.user.name,
+        email: data.user.email,
+        phone: data.user.phone,
+        role: data.user.role,
+        slug: data.user.slug,
+      }, {month: 1});
       yield put(AuthActions.loginAccountSuccess(data.user));
       callBack && callBack();
     }
@@ -27,7 +33,13 @@ function* handleSignupAccountRequest(action) {
     const {data} = yield call(AuthApis.signupAccount, account);
     if(data.statusText === "OK"){
       setLocalStorage("user_token", data.token, {month: 1});
-      setLocalStorage("user_info", data.user, {month: 1});
+      setLocalStorage("user_info", {
+        name: data.user.name,
+        email: data.user.email,
+        phone: data.user.phone,
+        role: data.user.role,
+        slug: data.user.slug
+      }, {month: 1});
       yield put(AuthActions.signupAccountSuccess(data.user));
       callBack && callBack();
     }
@@ -45,7 +57,13 @@ function* handleCheckedLoginAccountRequest(action) {
     const {data} = yield call(AuthApis.checkedLoginAccount, action.payload);
     if(data.statusText === "OK"){
       setLocalStorage("user_token", data.token, {month: 1});
-      setLocalStorage("user_info", data.user, {month: 1});
+      setLocalStorage("user_info", {
+        name: data.user.name,
+        email: data.user.email,
+        phone: data.user.phone,
+        role: data.user.role,
+        slug: data.user.slug
+      }, {month: 1});
       yield put(AuthActions.checkedLoginAccountSuccess(data.user))
     }
   } catch (error) {
