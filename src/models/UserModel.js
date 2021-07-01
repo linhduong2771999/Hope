@@ -9,6 +9,7 @@ class UserFactory {
             this.role = data.role || ["USER"]   
             this.phone = data.phone || ""
             this.profile = data.profile || {
+                dob: "",
                 full_name: "",
                 description: "",
                 gender: "",

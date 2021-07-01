@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import { formatDate } from '../../helpers/dates';
 import { 
     socialItem, 
     tabSettingItem, 
@@ -10,7 +10,6 @@ import {
 } from "./data";
 
 import Phone from "../../assets/images/svg/phone-alt.svg";
-import UserEdit from "../../assets/images/svg/user-edit.svg";
 import AngleRight from "../../assets/images/svg/angle-right.svg";
 import DefaultUserMale from "../../assets/images/common/default-user-male.png";
 import DefaultUserFemale from "../../assets/images/common/default-user-female.png";
@@ -18,7 +17,7 @@ import DefaultUserFemale from "../../assets/images/common/default-user-female.pn
 import Card from "../../components/Card/Card";
 import Tabs from "../../components/Tabs/Tabs";
 // import Input from "../../components/Input/Input";
-import Button from '../../components/Button/Button';
+// import Button from '../../components/Button/Button';
 import TabPane from "../../components/TabPane/TabPane";
 import GridLayout from '../../components/GridLayout/GridLayout';
 import FontAwesome from "../../components/FontAwesome/FontAwesome";
@@ -90,10 +89,13 @@ class ProfileAccount extends Component {
 
     render() {
         const { user } = this.props.stateOfProfileAccountReducers;
+        const createAt = user.createAt ? user.createAt : "";
+        const lastLoginAt = user.lastLoginAt ? user.lastLoginAt : "";
         const email = user.email ? user.email : "???";
         // const name = user.name ? user.name : "???"; 
         const phone = user.phone ? user.phone : "???"; 
-        const full_name = user.profile.full_name ? user.profile.full_name : "???"; 
+        const full_name = user.profile.full_name ? user.profile.full_name : "???";
+        const dob = user.profile.dob ? user.profile.dob : "???"; 
         const address = user.profile.address ? user.profile.address : "???"; 
         const about_me = user.profile.about_me ? user.profile.about_me : "???"; 
         const country = user.profile.country ? user.profile.country : "???"; 
@@ -185,13 +187,13 @@ class ProfileAccount extends Component {
                                             <p className="title">Full Name</p>
                                             <p className="full-name">{full_name}</p>
                                         </Col>
-                                        <Col col={3} className="user-info__phone">
-                                            <p className="title">Mobile</p>
-                                            <p className="phone">{phone}</p>
+                                        <Col col={3} className="user-info__gender">
+                                            <p className="title">Gender</p>
+                                            <p className="gender">{gender}</p>
                                         </Col>
                                         <Col col={3} className="user-info__dob">
-                                            <p className="title">Email</p>
-                                            <p className="dob">{email}</p>
+                                            <p className="title">Date of birth</p>
+                                            <p className="dob">{dob}</p>
                                         </Col>
                                         <Col col={3} className="user-info__country">
                                             <p className="title">Country</p>
@@ -204,7 +206,7 @@ class ProfileAccount extends Component {
                                 </Card>
                                 <Card className="description-content">
                                     <div className="title">
-                                        About me
+                                        Description
                                     </div>
                                     <div className="text">
                                         <p>{description}</p>
@@ -217,6 +219,37 @@ class ProfileAccount extends Component {
                                 className="card-settings"
                                 isActiveTab={this.state.active_SettingTab === "label4" ? true :false }
                             >
+                                
+                                <Card className="account-content">
+                                    <div className="title">
+                                        <strong>Account</strong>
+                                        <FontAwesome 
+                                            src={AngleRight}
+                                            width="25px"
+                                            height="25px"
+                                            alt="User edit"
+                                        />
+                                        <span>Information and activities</span>
+                                    </div>
+                                    <Row className="account-info">
+                                        <Col col={3} className="account-info__email">
+                                            <p className="title">Email</p>
+                                            <p className="email">{email}</p>
+                                        </Col>
+                                        <Col col={3} className="account-info__phone">
+                                            <p className="title">Phone</p>
+                                            <p className="phone">{phone}</p>
+                                        </Col>
+                                        <Col col={3} className="account-info__create-at">
+                                            <p className="title">Create At</p>
+                                            <p className="create-at">{formatDate(createAt)}</p>
+                                        </Col>
+                                        <Col col={3} className="account-info__last-login">
+                                            <p className="title">Last login at</p>
+                                            <p className="last-login">{formatDate(lastLoginAt)}</p>
+                                        </Col>
+                                    </Row>
+                                </Card>
                                 
                                 <UpdatePassword />
                                 
@@ -240,3 +273,7 @@ const mapStateToProps = (state) => {
 // })
 
 export default connect(mapStateToProps, null)(ProfileAccount);
+
+// Account detail
+// Profile detail
+// Role for router
