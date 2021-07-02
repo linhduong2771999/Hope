@@ -4,23 +4,19 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { AuthActions } from "../../../store/actions/index";
 import { successPopup } from "../../../components/SweetAlert/SweetAlert";
+import { validateEmail } from "../../../helpers/validates";
 import { ToastContainer } from "react-toastify";
 import { removeDiacritics } from "../../../helpers/strings";
 import { createLoadingSelector } from "../../../helpers/loadingSelector";
-import { 
-  validateEmail, 
-} from "../../../helpers/validates";
-import { 
-  infoNotification, 
-  validateErrorNotification 
-} from "../../../components/Notification/Notifies";
+import { validateErrorNotification } from "../../../components/Notification/Notifies";
 
 // Components
-import Input from "../../../components/Input/Input";
+import Form from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import LoadingIcon from "../../../components/LoadingIcon/LoadingIcon";
+
 const formData = [
-  { className: "email", type: "text", name: "email", label: "Email" },
+  { key: "unique-forgotPass", className: "email", type: "text", name: "email", label: "Email" },
 ];
 class ForgotPassword extends Component {
 
@@ -105,25 +101,20 @@ class ForgotPassword extends Component {
 
   renderInput = (data) => (
     data.map((item, index) => (
-      <div className="input-group" key={index} >
-        <div className={item.className}>
-          {
-            <Input 
-              type={item.type} 
-              name={item.name} 
-              ref={this.inputRef[index]}
-              onChange={this.onChangeInput}
-              onBlur={() => this.onBlur(index)}
-              value={this.state.account[item.name]}
-            />
-          }
-          <label>{item.label}</label>
-          <div className="border"></div>
-        </div>
+      <Form.InputGroup key={item.key} >
+        <Form.InputWithBorder 
+          label={item.label}
+          type={item.type}
+          name={item.name}
+          inputRef={this.inputRef[index]}
+          onChange={this.onChangeInput}
+          onBlur={() => this.onBlur(index)}
+          value={this.state.account[item.name]}
+        />
         {
-          this.state.errors[item.name] && <span className="input-error">{this.state.errors[item.name]}</span>
+          this.state.errors[item.name] && <Form.InputError text={this.state.errors[item.name]} />
         }
-      </div>
+      </Form.InputGroup>
     ))
   )
 
@@ -135,7 +126,7 @@ class ForgotPassword extends Component {
       </div>
       {this.renderInput(formData)}
       <div className="reset-password-btn">
-        <Button>Reset my password</Button>
+        <Button sample="btn-primary">Reset my password</Button>
       </div>
       <div className="return-login">
         <Link to="/login">Return to login?</Link>

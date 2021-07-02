@@ -1,4 +1,4 @@
-import React, { Component, forwardRef } from "react";
+import React, { Component, Fragment } from "react";
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -117,7 +117,7 @@ class Sidebar extends Component {
         {submenu.map((item, index) => {
             const activeLinkClassName = item.link === this.props.location.pathname && "active-link";
           return (
-            <li className="submenu__item" key={index}>
+            <li className="submenu__item" key={item.key}>
               <Link
                 to={item.link}
                 className={`submenu__link ${activeLinkClassName}`}
@@ -144,10 +144,9 @@ class Sidebar extends Component {
       const showCollapseIcon = item.subMenu ? collapseIconClassName : "";
 
         return (
-          <li className="menu__item" key={index}>
+          <li className="menu__item" key={item.key}>
             <Link
               to={item.link}
-              className="menu__link"
               onClick={() =>
                 this.onSelectedLink({
                   selectedLinkIndex: item.key,
@@ -181,7 +180,7 @@ class Sidebar extends Component {
     }
   }
   render() {
-    const { user } = this.props.stateOfAuthReducers;
+    const { user, isAuthenticated } = this.props.stateOfAuthReducers;
 
     const fullName = user.profile.full_name ? user.profile.full_name : "???";
     const gender = user.profile.gender ? user.profile.gender : "???"; 
@@ -194,18 +193,24 @@ class Sidebar extends Component {
       <div className={`sidebar`} id="sidebar" ref={this.sidebarNavbar}>
         <div className="sidebar-wrap">
           <div className="sidebar-main">
-            <div className="profile">
-              <div className="profile__img">
-                  <img src={avatar} />
-              </div>
-              <div className="profile__info">
-                  <p className="profile__info-fullname">{fullName}</p>
-                  <p className="profile__info-name">{name}</p>
-              </div>
-            </div>
-            <div className="main">
-                <p className="email">{email}</p>
-            </div>
+            {
+              isAuthenticated ? (
+                <Fragment>
+                  <div className="profile">
+                    <div className="profile__img">
+                        <img src={avatar} alt="avatar"/>
+                    </div>
+                    <div className="profile__info">
+                        <p className="profile__info-fullname">{fullName}</p>
+                        <p className="profile__info-name">{name}</p>
+                    </div>
+                  </div>
+                  <div className="main">
+                    <p className="email">{email}</p>
+                  </div>
+                </Fragment>
+              ) : null
+            }
             {this.renderMenu()}
           </div>
         </div>

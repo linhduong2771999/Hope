@@ -10,13 +10,14 @@
 }
 .sidebar{
     position: fixed;
-    z-index: 100;
+    z-index: z-index("sidebar");
     margin-left: 0;
     max-width: 500px;
-    @include size(270px, 100vh);
     background-color: $default-white;
+    @include size(270px, 100vh);
     @include responsive(SM){
         margin-left: -270px;
+        margin-top: -2px;
         @include transition(all .5s ease);
     }
     .sidebar-wrap{
@@ -24,18 +25,16 @@
         .sidebar-main{
             @include size(100%);
             .profile{
-                display: flex;
                 overflow: hidden;
                 padding: 0 1.5rem;
-                align-items: center;
+                @include flex-box($display: flex, $align: center);
                 &__img{
                     padding: .5rem 0;
                     > img {
                         @include size(45px);
-                        border-radius: 10px;
-                        -webkit-box-shadow: 4px 3px 13px 0px rgba(0,0,0,0.75);
-                        -moz-box-shadow: 4px 3px 13px 0px rgba(0,0,0,0.75);
-                        box-shadow: 4px 3px 6px 0 rgba(0,0,0,0.30);                    }
+                        @include border-radius(10px);
+                        @include box-shadow(3px 2px 13px -1px rgba(0,0,0,0.75));
+                    }
                 }
                 &__info{
                     margin-left: .75rem;
@@ -58,10 +57,8 @@
                     font-size: calc(#{$fontSize-small} + 1px);
                     color: $grey-bold-2;
                     font-weight: 600;
-                    white-space: nowrap; 
                     width: 100%; 
-                    overflow: hidden;
-                    text-overflow: ellipsis; 
+                    @include text-truncate;
                     &::before{
                         content: "--";
                         margin-right: .5rem;
@@ -84,10 +81,8 @@
                 &__icon--collapse-plus{
                     &::after{
                         content: "+";
-                        position: absolute;
-                        top: calc(50% - 10px);
-                        right: 20px;
                         font-size: 21px;
+                        @include position($position: absolute, $top: calc(50% - 10px), $right: 20px);
                         @include animation(0, 0.5s, scale-plus, ease);
                     }
                 }
@@ -96,9 +91,7 @@
                         content: "";
                         @include size(9px, 0px);
                         border-top: 2px solid black;
-                        position: absolute;
-                        top: calc(50%);
-                        right: 22px;
+                        @include position($position: absolute, $top: calc(50%), $right: 22px);
                         @include animation(0, 0.5s, scale-minus, ease);
                     }
                 }
@@ -194,9 +187,7 @@
                     &::after{
                         @include responsive(SM){
                             content: "+";
-                            position: absolute;
-                            top: calc(50% - 10px);
-                            right: 20px;
+                            @include position($position: absolute, $top: calc(50% - 10px), $right: 20px);
                             font-size: 21px;
                             @include animation(0, 0.5s, scale-plus, ease);
                         }
@@ -209,9 +200,7 @@
                             content: "";
                             @include size(9px, 0px);
                             border-top: 2px solid black;
-                            position: absolute;
-                            top: calc(50%);
-                            right: 22px;
+                            @include position($position: absolute, $top: calc(50%), $right: 22px);
                             @include animation(0, 0.5s, scale-minus, ease);
                         }
                         content: "";

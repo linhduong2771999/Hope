@@ -1,14 +1,101 @@
+/* Mixin with params */ 
 @mixin size($width, $height: $width) {
     width: $width;
     height: $height;
 }
 
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
 
-// set defaults
+@mixin box-shadow($arg...){
+    -webkit-box-shadow: $arg;
+    -moz-box-shadow: $arg;
+    box-shadow: $arg;
+}
+
+@mixin flex-box($display: flex, $direction: null, $wrap: null, $justify: null, $align: null){
+    display: $display;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+@mixin background-center($position: center, $repeat: no-repeat, $size: cover) {
+    background-position: $position;
+    background-repeat: $repeat;
+    background-size: $size;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
+@mixin  opacity($opacity: null, $visibility: null) {
+    opacity: $opacity;
+    visibility: $visibility;
+}
+
+@mixin border-top-radius($radius) {
+    -webkit-border-top-right-radius: $radius;
+    border-top-right-radius: $radius;
+     -webkit-border-top-left-radius: $radius;
+     border-top-left-radius: $radius;
+     background-clip: padding-box;
+}
+@mixin border-right-radius($radius) {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    -webkit-border-top-right-radius: $radius;
+    border-top-right-radius: $radius;
+    background-clip: padding-box;
+}
+@mixin border-bottom-radius($radius) {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    -webkit-border-bottom-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    background-clip: padding-box;
+}
+@mixin border-left-radius($radius) {
+    -webkit-border-bottom-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    -webkit-border-top-left-radius: $radius;
+    border-top-left-radius: $radius;
+    background-clip: padding-box;
+} 
+
+/* mixin defaults */ 
 @mixin resetAnchor {
     text-decoration: none;
     color: inherit;
 }
+
+@mixin center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 // animation
 @mixin transition($x...){
@@ -20,16 +107,16 @@
   }
 
   @mixin keyframe ($animation_name) {
-    // @-webkit-keyframes $animation_name {
-    //     @content;
-    // }
+    @-webkit-keyframes $animation_name {
+        @content;
+    }
 
-    // @-moz-keyframes $animation_name {
-    //     @content;
-    // }
+    @-moz-keyframes $animation_name {
+        @content;
+    }
 
     // @-o-keyframes $animation_name {
-    //     @content;
+        // @content;
     // }
 
     @keyframes  $animation_name {
@@ -38,17 +125,17 @@
 }
 
 @mixin animation ($delay, $duration, $animation, $timing ,$direction: normal, $fillmode: forwards) {
-    // -webkit-animation-delay: $delay;
-    // -webkit-animation-duration: $duration;
-    // -webkit-animation-name: $animation;
-    // -webkit-animation-fill-mode: $fillmode;
-    // -webkit-animation-direction: $direction;
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: $fillmode;
+    -webkit-animation-direction: $direction;
 
-    // -moz-animation-delay: $delay;
-    // -moz-animation-duration: $duration;
-    // -moz-animation-name: $animation;
-    // -moz-animation-fill-mode: $fillmode;
-    // -moz-animation-direction: $direction;
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: $fillmode;
+    -moz-animation-direction: $direction;
 
     animation-delay: $delay;
     animation-duration: $duration;

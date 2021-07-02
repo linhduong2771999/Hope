@@ -2,7 +2,7 @@ import UserFactory from "../../../models/UserModel";
 
 const initialState = {
     user: new UserFactory({}),
-    // isAuthenticated: false
+    isAuthenticated: false
 }
 
 const authReducers = (state = initialState, action) => {
@@ -10,55 +10,61 @@ const authReducers = (state = initialState, action) => {
         case "LOGIN_ACCOUNT_REQUEST":
             return {
                 ...state,
-                // isAuthenticated: false
+                isAuthenticated: false
             }
         case "LOGIN_ACCOUNT_SUCCESS": {
             const user = new UserFactory(action.payload);
             return {
                 ...state,
                 user,
-                // isAuthenticated: true
+                isAuthenticated: true
             }
         }
         case "LOGIN_ACCOUNT_ERROR":
             return {
                 ...state,
-                // isAuthenticated: false,
+                isAuthenticated: false,
                 error: action.payload
             }
         /*-----@@-----*/
         case "SIGNUP_ACCOUNT_REQUEST": {
             return {
-                ...state
+                ...state,
+                isAuthenticated: false
             }
         }       
         case "SIGNUP_ACCOUNT_SUCCESS": {
             const user = new UserFactory(action.payload);
             return {
                 ...state,
-                user
+                user,
+                isAuthenticated: true
             }
         }    
         case "SIGNUP_ACCOUNT_ERROR": {
             return {
-                ...state
+                ...state,
+                isAuthenticated: false
             }
         }   
         /*-----@@-----*/
         case "CHECKED_LOGIN_ACCOUNT_REQUEST":
             return{
-                ...state
+                ...state,
+                isAuthenticated: false
             }
         case "CHECKED_LOGIN_ACCOUNT_SUCCESS": {
             const user = new UserFactory(action.payload);
             return{
                 ...state,
-                user
+                user,
+                isAuthenticated: true
             }
         }
         case "CHECKED_LOGIN_ACCOUNT_ERROR": {
             return{
-                ...state
+                ...state,
+                isAuthenticated: false
             }
         }
         /*-----@@-----*/

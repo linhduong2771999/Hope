@@ -1,6 +1,19 @@
-.btn-default{
+@import "../../assets/sass/constants/variables.scss";
+@import "../../assets/sass/constants/mixin.scss";
+
+.btn-primary{
+    text-align: center;
+    width: 100%;
     outline: none;
     border: none;
     display: inline-block;
     cursor: pointer;
+    font-size: 15px;
+    color: $default-white;
+    background-color: $blue;
+    box-shadow:0 10px 30px 0 rgba(189,89,212,0.5);
+    @include transition(all .3s ease);
+    &:hover {
+        background-color: $brown-bold-2;
+    }
 }

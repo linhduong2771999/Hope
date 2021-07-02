@@ -5,7 +5,7 @@
         @include size(100%, inherit);
         display: flex;
         position: fixed;
-        z-index: 99;
+        z-index: z-index("header");
         @include responsive(SM) {
             flex-direction: column;
         }
@@ -23,16 +23,17 @@
                 padding: .25rem 0;
                 text-align: center;
                 @include responsive(SM){
-                    display: flex;
-                    justify-content: space-between;
+                    @include flex-box($display: flex, $justify: space-between);
                 }
-                .collapse-navbar, .collapse-sidebar-responsive{
+                .collapse-navbar, 
+                .collapse-sidebar-responsive{
                     margin-top: 5px;
                     display: none;
                     @include responsive(SM){
                         display: block;
                     }
-                    .btn--collapse-navbar, .btn--collapse-sidebar-responsive{
+                    .btn--collapse-navbar, 
+                    .btn--collapse-sidebar-responsive{
                         padding: 0;
                         margin: 0 1rem;
                         cursor: pointer;
@@ -53,10 +54,8 @@
                     }
                     &__logo{
                         margin-right: .5rem;
-                        border-top-left-radius: 75px;
-                        border-top-right-radius: 75px;
-                        border-bottom-left-radius: 45px;
-                        border-bottom-right-radius: 45px;
+                        @include border-top-radius(75px);
+                        @include border-bottom-radius(45px);
                         vertical-align: bottom;
                     }
                     &__name{
@@ -129,24 +128,19 @@
                     &__icon.notifi-badge{
                         position: relative;
                         .dot{
-                            position: absolute;
-                            top: 1px;
-                            right: 1px;
-                            @include size(5px);
                             background-color: $grey-bold-2;
-                            border-radius: 50%;
+                            @include border-radius(50%);
+                            @include size(5px);
+                            @include position($position: absolute, $top: -1px, $right: -1px);
                         }
                         .border{
-                            position: absolute;
-                            top: -2px;
-                            right: -2px;
-                            @include size(11px);
                             background-color: transparent;
-                            border-radius: 50%;
                             border: 2px solid $grey-bold-2;
                             transform: scale(0);
-                            opacity: 0;
-                            visibility: hidden;
+                            @include position($position: absolute, $top: -4px, $right: -4px);
+                            @include size(11px);
+                            @include border-radius(50%);
+                            @include opacity(0, hidden);
                             @include animation(0, 1s, scale-border ,ease);
                             animation-iteration-count: infinite;
                         }
@@ -157,7 +151,7 @@
                             // display: block;
                             vertical-align: middle;
                             @include size(35px);
-                            border-radius: 50%;
+                            @include border-radius(50%);
                         }
                     }
                     &__name{
@@ -169,14 +163,12 @@
                         color: $grey-light-2;
                         background-color: $grey-bold;
                         border: 3px solid $grey-light;
-                        border-radius: 10px;
                         outline: none;
                         padding: .25rem 1rem;
                         cursor: pointer;
-                        transition: all .3s ease;
-                        -webkit-box-shadow: 4px 4px 15px 0px rgba(0,0,0,0.75);
-                        -moz-box-shadow: 4px 4px 15px 0px rgba(0,0,0,0.75);
-                        box-shadow: 4px 4px 15px 0px rgba(0,0,0,0.75);
+                        @include transition(all .3s ease);
+                        @include border-radius(10px);
+                        @include box-shadow(4px 4px 15px 0px rgba(0,0,0,0.75));
                         &:hover{
                             color: $default-white;
                             border: 3px solid $grey-light-2;
@@ -187,23 +179,17 @@
                     list-style: none;
                     margin: 0;
                     padding: 0;
-                    position: absolute;
-                    top: 70px;
-                    right: 20px;
-                    border-radius: 6px;
-                    -webkit-box-shadow: 0px 5px 20px 0px $grey-bold;
-                    -moz-box-shadow: 0px 5px 20px 0px $grey-bold;
-                    box-shadow: 0px 5px 20px 0px $grey-bold;
                     background-color: $default-white;
+                    @include box-shadow(0px 5px 20px 0px $grey-bold);
+                    @include position($position: absolute, $top: 70px, $right: 20px);
+                    @include border-radius(6px);
                     @include size(200px, auto);
                     @include transition(all .5s ease);
                     transform-origin: top;
                     transform: scaleY(0);
                     &::after{
                         content: "";
-                        position: absolute;
-                        top: -5px;
-                        right: 3px;
+                        @include position($position: absolute, $top: -5px, $right: 3px);
                         @include size(0);
                         border-left: 10px solid transparent;
                         border-right: 10px solid transparent;
@@ -221,14 +207,12 @@
                     &__item:last-child{
                         border-bottom: none;
                         &:hover{
-                            border-bottom-left-radius: 6px;
-                            border-bottom-right-radius: 6px;
+                            @include border-bottom-radius(6px);
                         }
                     }
                     &__item:first-child{
                         &:hover{
-                            border-top-left-radius: 6px;
-                            border-top-right-radius: 6px;
+                            @include border-top-radius(6px);
                         }
                     }
                     &__link{
@@ -289,18 +273,15 @@
 @keyframes scale-border {
     0% {
         transform: scale(0);
-        opacity: 0;
-        visibility: hidden;
+        @include opacity(0, hidden);
     }
     50% {
         transform: scale(1.8);
-        opacity: 1;
-        visibility: visible;
+        @include opacity(1, visible);
     } 
     100%{
         transform: scale(2.2);
-        opacity: 0;
-        visibility: hidden;
+        @include opacity(0, hidden);
     } 
 }
 
@@ -322,21 +303,3 @@
         flex: 0 0 270px;
     }
 }
-
-// @keyframes header-navbar--shrinkY{
-//     0% {
-//         // transform: scaleX(1);
-//     }
-//     100% {
-//         // transform: scaleX(1.1);
-//     }
-// }
-
-// @keyframes header-navbar--stretchY{
-//     0% {
-//         // transform: scaleX(1.1);
-//     }
-//     100% {
-//         // transform: scaleX(1);
-//     }
-// }

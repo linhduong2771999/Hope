@@ -18,21 +18,21 @@ import {
 } from "../../../components/Notification/Notifies";
 
 // Components
-import Input from "../../../components/Input/Input";
+import Form from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 
 // Form's info
 const checkedBoxData = [
-  { className: "role", type: "radio", name: "role", value: ["USER"], label: "User", checked: true },
-  { className: "role", type: "radio", name: "role", value: ["USER", "SHOP"], label: "Shop" },
+  { key: "unique-signup6", className: "role", type: "radio", name: "role", value: ["USER"], label: "User", checked: true },
+  { key: "unique-signup7", className: "role", type: "radio", name: "role", value: ["USER", "SHOP"], label: "Shop" },
 ]
 
 const formData = [
-  { className: "name", type: "text", name: "name", label: "Username" },
-  { className: "email", type: "text", name: "email", label: "Email" },
-  { className: "phone", type: "text", name: "phone", label: "Phone" },
-  { className: "password", type: "password", name: "password", label: "Password" },
-  { className: "confirmPassword", type: "password", name: "confirmPassword", label: "Confirm password" },
+  { key: "unique-signup1", className: "name", type: "text", name: "name", label: "Username" },
+  { key: "unique-signup2", className: "email", type: "text", name: "email", label: "Email" },
+  { key: "unique-signup3", className: "phone", type: "text", name: "phone", label: "Phone" },
+  { key: "unique-signup4", className: "password", type: "password", name: "password", label: "Password" },
+  { key: "unique-signup5", className: "confirmPassword", type: "password", name: "confirmPassword", label: "Confirm password" },
 ];
 class Signup extends Component {
 
@@ -147,44 +147,35 @@ class Signup extends Component {
   }
 
   renderCheckedBox = (data) => (
-    data.map((item, index) => (
-      <div className="checkbox-group" key={index} >
-          <label className={item.className}>
-              {item.label}
-              <Input 
-                type={item.type} 
-                name={item.name} 
-                value={item.value}
-                defaultChecked={item.checked}
-                onChange={this.onChangeCheckedBox}
-              />
-              <span className="checkmark"></span>
-          </label>
-      </div>
+    data.map((item) => (
+      <Form.CheckBox 
+        key={item.key}
+        type={item.type}
+        name={item.name}
+        label={item.label}
+        value={item.value}
+        defaultChecked={item.checked}
+        onChange={this.onChangeCheckedBox}
+      />
     ))
   )
 
   renderInput = (data) => (
     data.map((item, index) => (
-      <div className="input-group" key={index} >
-        <div className={item.className}>
-          {
-            <Input 
-              type={item.type} 
-              name={item.name} 
-              ref={this.inputRef[index]}
-              onChange={this.onChangeInput}
-              onBlur={() => this.onBlur(index)}
-              value={this.state.account[item.name]}
-            />
-          }
-          <label>{item.label}</label>
-          <div className="border"></div>
-        </div>
+      <Form.InputGroup key={item.key}>
+        <Form.InputWithBorder
+          label={item.label}
+          type={item.type}
+          name={item.name}
+          inputRef={this.inputRef[index]}
+          onChange={this.onChangeInput}
+          onBlur={() => this.onBlur(index)}
+          value={this.state.account[item.name]}
+        />          
         {
-          this.state.errors[item.name] && <span className="input-error">{this.state.errors[item.name]}</span>
+          this.state.errors[item.name] &&  <Form.InputError text={this.state.errors[item.name]} />
         }
-      </div>
+      </Form.InputGroup>
     ))
   )
 
@@ -197,7 +188,7 @@ class Signup extends Component {
         <Link to="/login">Already Registered?</Link>
       </div>
       <div className="signup-btn">
-        <Button>Register</Button>
+        <Button sample="btn-primary">Register</Button>
       </div>
     </form>
   )

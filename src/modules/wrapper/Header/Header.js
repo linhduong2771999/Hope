@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { ModalPopupActions } from "../../../store/actions/index";
-import { removeLocalStorage, getLocalStorage } from "../../../helpers/localStorage";
+import { 
+    removeLocalStorage, 
+    // getLocalStorage 
+} from "../../../helpers/localStorage";
 
 import Swal from 'sweetalert2';
 
@@ -111,8 +114,8 @@ class Header extends Component {
     }
 
     render() {
-        const { user } = this.props.stateOfAuthReducers;
-        const userToken = getLocalStorage("user_token") || {};
+        const { user, isAuthenticated } = this.props.stateOfAuthReducers;
+        // const userToken = getLocalStorage("user_token") || {};
         if(this.state.redirect) return <Redirect to="/login" />
 
         const gender = user.profile.gender ? user.profile.gender : "???";
@@ -121,7 +124,7 @@ class Header extends Component {
 
         return (
             <div className={`header`}>
-                <div className={`header-container `}>
+                <div className={`header-container`}>
                     <div className={`header-brand`} ref={this.headerBrand}>
                         <div className="brand-container">
                             <div className="collapse-sidebar-responsive">
@@ -196,11 +199,11 @@ class Header extends Component {
                                     </a>
                                 </li>
                                     {
-                                        userToken.exp > Date.now() ? (
+                                        isAuthenticated ? (
                                                 <li className="menu__item">
                                                     <a className="menu__link">
                                                         <span className="menu__avatar" onClick={this.toggleSubMenu}>
-                                                            <img src={avatar} />
+                                                            <img src={avatar} alt="avatar" />
                                                         </span>
                                                     </a>
                                                     
@@ -232,7 +235,7 @@ class Header extends Component {
                                                             </Link>
                                                         </li>
                                                         <li className="submenu__item">
-                                                            <Link to="/profile" className="submenu__link" to="/profile">
+                                                            <Link to="/profile" className="submenu__link" >
                                                                 <span className="submenu__icon">
                                                                         <FontAwesome 
                                                                             src={Cog} 

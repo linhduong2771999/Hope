@@ -1,10 +1,14 @@
 import React from 'react';
 import PropsTypes from "prop-types";
+import classNames from 'classnames';
 import "./Button.scss"
 
-const Button = ({type, onClick, className, children}) => {
+const Button = ({type, onClick, className, sample, children}) => {
+    const buttonClass = classNames({
+        "btn-primary": sample === "btn-primary"
+    })
     return (
-        <button type={type} onClick={onClick} className={`btn-default ${className}`}>
+        <button type={type} onClick={onClick} className={`${buttonClass} ${className}`}>
             {children}
         </button>
     );
