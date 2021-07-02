@@ -22,6 +22,8 @@ const Router = () => (
                 <Route exact path="/profile" component={ProfileAccount} />
                 <PrivateRoute exact path="/user_management" component={ProductsManagement}/>
             </Wrapper>
+            {/*
+            */}
         </Switch>
     </BrowserRouter>
 )

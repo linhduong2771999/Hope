@@ -9,15 +9,12 @@ import { validateEmail, validateStrengthPassword } from "../../../helpers/valida
 import { loginSuccessNotification, validateErrorNotification } from "../../../components/Notification/Notifies";
 
 // Components
-import Eye from "../../../assets/images/svg/eye.svg";
+import Form from "../../../components/Input/Input";
 import Button  from "../../../components/Button/Button";
-import EyeSlash from "../../../assets/images/svg/eye-slash.svg";
-import FontAwesome from "../../../components/FontAwesome/FontAwesome";
-
 // Form's info
 const formData = [
-  {name: "email", type: "text", label: "Email"},
-  {name: "password", type: "password", label: "Password"}
+  {name: "email", type: "text", label: "Email", key: "unique-login1"},
+  {name: "password", type: "password", label: "Password", key: "unique-login2"}
 ];
 class Login extends Component {
 
@@ -47,7 +44,7 @@ class Login extends Component {
     const errors = {};
 
     errors.email = !validateEmail(account.email) ? "Invalid Email" : "";
-    errors.password = !validateStrengthPassword(account.password) ? "password must contain 1 letter,1 number, 1 special and be 8-16 characters" : ""; 
+    errors.password = !validateStrengthPassword(account.password) ? "Password must contain 1 letter,1 number and 8-16 characters" : ""; 
 
     return errors
   }
@@ -71,9 +68,9 @@ class Login extends Component {
   }
 
   showPassword = () => {
-    this.setState({
-      isShowPassword: !this.state.isShowPassword
-    })
+    this.setState((state, props) => ({
+      isShowPassword: !state.isShowPassword
+    }))
   }
 
   formSubmit = (e) => {
@@ -97,37 +94,33 @@ class Login extends Component {
   }
 
   renderInput = (data) => (
-    data.map((item, index) => {
+    data.map((item) => {
       if(item.name === "password") {
         return (
-          <div className="input-group" key={index}>
+          <Form.InputGroup key={item.key}>
               <div className="password">
-                <input
+                <Form.Input
                   name={item.name}
                   onChange={this.onChangeInput}
                   value={this.state.account.password} 
                   type={this.state.isShowPassword ? "text" : item.type} 
                 />
                 <label>{item.label}</label>
-                <div className="show-password" onClick={this.showPassword}>
-                    <FontAwesome  
-                      width="20px"
-                      height="20px"
-                      alt={"Show password"}
-                      src={this.state.isShowPassword ? EyeSlash : Eye}
-                      />
-                </div>
+                <Form.ShowPasswordIcon 
+                  handleShowPassword={this.showPassword} 
+                  isShowPassword={this.state.isShowPassword}
+                />
               </div>
               {
-                this.state.errors[item.name] && <span className="input-error">{this.state.errors[item.name]}</span>
+                this.state.errors[item.name] && <Form.InputError text={this.state.errors[item.name]} />
               }
-          </div>
+          </Form.InputGroup>
         )
       }
       return (
-        <div className="input-group" key={index}>
+        <Form.InputGroup key={item.key}>
             <div className="username">
-              <input
+              <Form.Input
                 name={item.name}
                 type={item.type} 
                 onChange={this.onChangeInput}
@@ -136,9 +129,9 @@ class Login extends Component {
               <label>{item.label}</label>
             </div>
             {
-              this.state.errors[item.name] && <span className="input-error">{this.state.errors[item.name]}</span>
+              this.state.errors[item.name] && <Form.InputError text={this.state.errors[item.name]} />
             }
-        </div>
+        </Form.InputGroup>
       )
     })
   )
@@ -154,8 +147,13 @@ class Login extends Component {
             Forgot password?
         </Link>
       </div>
+      <div className="return-signup">
+        <Link to="/signup">
+            Dont't have an account?
+        </Link>
+      </div>
       <div className="login-btn">
-          <Button>Login</Button>
+          <Button sample="btn-primary">Login</Button>
       </div>
     </form>
   )
@@ -164,11 +162,11 @@ class Login extends Component {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
     const userToken = getLocalStorage("user_token") || {};
     if(userToken.exp > Date.now()) return <Redirect to={from} />
-
     return (
       <div className="login">
         <ToastContainer style={{maxWidth: "700px", width: "auto"}} />
         <div className="login-container">
+          <div className="background">
             <div className="login-form">
                 {this.renderForm(formData)}
             </div>
@@ -176,6 +174,7 @@ class Login extends Component {
                 <p>Don't have an account?</p>
                 <Link className="register-btn" to="/signup">Register</Link>
             </div>
+          </div>
         </div>
       </div>
     )

@@ -46,10 +46,13 @@ export function callAPI(
              })
              .catch((error) => {
                  const errorResponse = ( ((error || {}).response || {}).data || {} ); // deeply check
+
                  if(error.message === "Network Error") {
                      reject(error)
-                    } else {
-                     reject(errorResponse)
+                } else if(error.response && error.response.status === 401) {
+                    reject({message: "Your session has expired. Please login again.", statusText: "401"})
+                } else {
+                    reject(errorResponse)
                  }
              })
         } else {

@@ -1,10 +1,74 @@
 import React from "react";
-import PropsTypes from "prop-types";
 import "./Input.scss";
+
+import classNames from "classnames";
+import PropsTypes from "prop-types";
+
+import FontAwesome from "../FontAwesome/FontAwesome";
+
+import EyeSlash from "../../assets/images/svg/eye-slash.svg";
+import Eye from "../../assets/images/svg/eye.svg";
+
+
+const InputGroup = ({ children, className, ...props }) => (
+  <div
+    className={classNames({
+      "input-group": true,
+      [className]: className,
+    })}
+  >
+    {children}
+  </div>
+);
+
+const InputError = ({text}) => (
+  <span className="input-error">
+    {text}
+  </span>
+)
+
+const CheckBox = ({className, label, ...props}) => (
+  <div 
+    className={classNames({
+      "checkbox-group": true,
+      [className]: className,
+    })}
+  >
+    <label>
+        {label}
+        <Input 
+          {...props}
+        />
+        <span className="checkmark"></span>
+    </label>
+  </div>
+)
+
+const ShowPasswordIcon = ({handleShowPassword, isShowPassword}) => (
+  <div className="show-password" onClick={handleShowPassword}>
+    <FontAwesome  
+      width="20px"
+      height="20px"
+      alt={"Show password"}
+      src={isShowPassword ? EyeSlash : Eye}
+      />
+  </div>
+)
+
+const InputWithBorder = ({label, children, inputRef, ...props}) => (
+  <div 
+    className="input-with-border"
+  >
+    <Input ref={inputRef} {...props} />
+    <label>{label}</label>
+    <div className="border"></div>
+    {children}
+  </div>
+);
 
 const Input = React.forwardRef(
   (
-    { type, name, value, onChange, className, placeholder, defaultChecked, autoComplete, onFocus, onBlur },
+    {type, name, value, onChange, className, placeholder, defaultChecked, autoComplete, onFocus, onBlur },
     ref
   ) => {
     return (
@@ -48,4 +112,13 @@ Input.propsTypes = {
   autoComplete: PropsTypes.string
 };
 
-export default Input;
+const exportedObject  = {
+    Input,
+    CheckBox,
+    InputGroup,
+    InputError,
+    InputWithBorder,
+    ShowPasswordIcon
+}
+
+export default exportedObject;

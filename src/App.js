@@ -32,9 +32,7 @@ class App extends Component {
       if(this.state.redirect) return <PageNetworkError />
     */}
     return (
-      <h1>
         <Router />
-      </h1>
     );
   }
 }

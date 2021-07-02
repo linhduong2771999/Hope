@@ -5,19 +5,18 @@ import { Redirect } from 'react-router-dom';
 import { AuthActions } from "../../../store/actions/index";
 import { ToastContainer } from "react-toastify";
 import { removeDiacritics } from "../../../helpers/strings";
-import { infoNotification } from '../../../components/Notification/Notifies';
-import { timerIntervalPopup , warningPopup} from '../../../components/SweetAlert/SweetAlert';
+import { timerIntervalPopup } from '../../../components/SweetAlert/SweetAlert';
 import { createLoadingSelector } from '../../../helpers/loadingSelector';
 import { validateStrengthPassword } from '../../../helpers/validates';
 import { validateErrorNotification } from '../../../components/Notification/Notifies';
 
-import Input from "../../../components/Input/Input";
+import Form from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import LoadingIcon from '../../../components/LoadingIcon/LoadingIcon';
 
 const formItem = [
-    {name: "password", label: "New password"},
-    {name: "passwordConfirm", label: "Confirm your password"}
+    {key:"unique-resetPass", name: "password", label: "New password"},
+    {key:"unique-resetPass", name: "passwordConfirm", label: "Confirm your password"}
 ]
 class ResetPassword extends Component {
     constructor(props){
@@ -84,26 +83,21 @@ class ResetPassword extends Component {
     
     renderForm = (formItem) => {
         if(formItem.length > 0){
-            return formItem.map((input, index) => (
-                <div className="input-group" key={index} >
-                    <div className={input.className}>
+            return formItem.map((item, index) => (
+                <Form.InputGroup className="input-group" key={item.key} >
+                    <Form.InputWithBorder 
+                        label={item.label}
+                        type="password"
+                        name={item.name}
+                        inputRef={this.inputRef[index]}
+                        onChange={this.onChangeInput}
+                        onBlur={() => this.onBlur(index)}
+                        value={this.state.account[item.name]}
+                    />
                     {
-                        <Input 
-                            type="password" 
-                            name={input.name} 
-                            ref={this.inputRef[index]}
-                            onChange={this.onChangeInput}
-                            onBlur={() => this.onBlur(index)}
-                            value={this.state.account[input.name]}
-                        />
+                        this.state.errors[item.name] && <Form.InputError text={this.state.errors[item.name]} />
                     }
-                        <label>{input.label}</label>
-                        <div className="border"></div>
-                    </div>
-                    {
-                        this.state.errors[input.name] && <span className="input-error">{this.state.errors[input.name]}</span>
-                    }
-                </div>
+                </Form.InputGroup>
             ))
         }
 
@@ -158,7 +152,7 @@ class ResetPassword extends Component {
                         <form onSubmit={this.formSubmit}>
                             {this.renderForm(formItem)}
                             <div className="submit-btn">
-                                <Button>Reset password</Button>
+                                <Button sample="btn-primary">Reset password</Button>
                             </div>
                         </form>
                     </div>

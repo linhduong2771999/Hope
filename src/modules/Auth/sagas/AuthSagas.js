@@ -8,14 +8,14 @@ function* handleLoginAccountRequest(action) {
   try {
     const {data} = yield call(AuthApis.loginAccount, account);
     if(data.statusText === "OK"){
-      setLocalStorage("user_token", data.token, {month: 1});
+      setLocalStorage("user_token", data.token, {hours: 24});
       setLocalStorage("user_info", {
         name: data.user.name,
         email: data.user.email,
         phone: data.user.phone,
         role: data.user.role,
         slug: data.user.slug,
-      }, {month: 1});
+      }, {hours: 24});
       yield put(AuthActions.loginAccountSuccess(data.user));
       callBack && callBack();
     }
@@ -32,14 +32,14 @@ function* handleSignupAccountRequest(action) {
   try {
     const {data} = yield call(AuthApis.signupAccount, account);
     if(data.statusText === "OK"){
-      setLocalStorage("user_token", data.token, {month: 1});
+      setLocalStorage("user_token", data.token, {hours: 24});
       setLocalStorage("user_info", {
         name: data.user.name,
         email: data.user.email,
         phone: data.user.phone,
         role: data.user.role,
         slug: data.user.slug
-      }, {month: 1});
+      }, {hours: 24});
       yield put(AuthActions.signupAccountSuccess(data.user));
       callBack && callBack();
     }
@@ -56,22 +56,24 @@ function* handleCheckedLoginAccountRequest(action) {
   try {
     const {data} = yield call(AuthApis.checkedLoginAccount, action.payload);
     if(data.statusText === "OK"){
-      setLocalStorage("user_token", data.token, {month: 1});
+      setLocalStorage("user_token", data.token, {hours: 24});
       setLocalStorage("user_info", {
         name: data.user.name,
         email: data.user.email,
         phone: data.user.phone,
         role: data.user.role,
         slug: data.user.slug
-      }, {month: 1});
+      }, {hours: 24});
       yield put(AuthActions.checkedLoginAccountSuccess(data.user))
     }
   } catch (error) {
     const { callBack } = action.payload
     removeLocalStorage("user_token");
     removeLocalStorage("user_info");
-    yield put(AuthActions.checkedLoginAccountError(error))
-    callBack && callBack();
+    yield put(AuthActions.checkedLoginAccountError(error));
+    if(error.message === "Network Error"){
+      callBack && callBack();
+    }
   }
 }
 
@@ -129,10 +131,12 @@ function* resetPasswordRequest(){
   yield takeEvery(AuthActions.RESET_PASSWORD_REQUEST, handleResetPasswordRequest);
 }
 
-export default {
+const exportAuthSagas = {
   loginAccountRequest,
   signupAccountRequest,
   resetPasswordRequest,
   forgotPasswordRequest,
   checkedLoginAccountRequest
-};
+}
+
+export default exportAuthSagas;

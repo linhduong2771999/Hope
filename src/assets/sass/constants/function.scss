@@ -1,0 +1,18 @@
+$z-layers: (
+  "loading-page": 100,
+  "loading-icon": 90,
+  "modal": 80,
+  "sidebar": 70,
+  "header": 60,
+  "form": 50,
+  "block": 40
+);
+
+// $element = level name
+@function z-index($layer) {
+    @if not map-has-key($z-layers, $layer) {
+        @warn "No layer found for `#{$layer}` in $z-layers map. Property omitted.";
+      }
+      
+    @return map-get($z-layers, $layer);
+}
